@@ -1,0 +1,32 @@
+
+# services:
+
+#   backend:
+#     image: ghcr.io/jhonsmit1/survey-service:staging
+#     container_name: survey-backend
+#     ports:
+#       - "3000:3000"
+
+#   frontend:
+#     build: .
+#     container_name: survey-frontend
+#     ports:
+#       - "4200:4200"
+#     depends_on:
+#       - backend
+services:
+
+  backend:
+    image: ghcr.io/jhonsmit1/survey-service:staging
+    ports:
+      - "3000:3000"
+
+  frontend:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm start"
+    ports:
+      - "4200:4200"
